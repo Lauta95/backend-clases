@@ -16,5 +16,21 @@ const objetos =  [
 ]
 
 
-const lista = Object.keys(...objetos)
-console.log(lista);
+const productTypes = objetos.reduce((result, obj) => {
+	Object.keys(obj).forEach((v) => {
+		if(!result.includes(v)) result.push(v);
+	});
+	return result;
+}, [])
+
+const productSales = productTypes.reduce((p, c) => {
+	p[c] = 0;
+	objetos.forEach((v) => {
+		if (v[c]) {
+			p[c] += v[c];
+		}
+	});
+	return p;
+}, {});
+
+console.log(productTypes, productSales);
