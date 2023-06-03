@@ -2,8 +2,9 @@
 const temporizador = () => {
     console.log('iniciamos temporizador');
     let counter = 0;
-    setInterval(()=>{
+    const timer = setInterval(()=>{
         console.log(++counter);
+        if(counter > 5) clearInterval(timer)
     }, 2000)
 }
 
