@@ -1,7 +1,5 @@
 const temporizador = (callback) => {
-    setTimeout(() => {
-        callback()
-    }, 5000)
+    setTimeout(callback, 5000)
 }
 
 const operacion = () => console.log('booom');
