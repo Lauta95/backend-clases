@@ -5,9 +5,10 @@ const functionForMap = (x) => {
 }
 
 const newValues = originales.map(functionForMap);
+// ------
 const newValues2 = originales.map((x) => {
     return x * 2
 })
 
-console.log(newValues);
-console.log(newValues2);
+console.log(`Usando una función normal: ${newValues}`);
+console.log(`Usando una función pasando argumento: ${newValues2}`);
