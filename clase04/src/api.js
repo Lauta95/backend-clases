@@ -1,7 +1,7 @@
 import express from 'express'
 
 const app = express()
-app.use(express.json())
+app.use(express.json()) //esto es para recibir un formato de tipo json en el body
 
 let users = []
 
@@ -12,33 +12,38 @@ app.get('/api/user', (req, res) => {
 app.post('/api/user', (req, res) => {
     const user = req.body
 
-    users.push(user)
-    res.status(201).json({ status: 'success', message: 'user created' })
+    users.push(user) //esto agarra el OBJETO creado user y lo mete en el ARRAY users
+
+    res.status(201).json({ status: 'success!', message: 'creado' })
 })
 
 app.put('/api/user/:id', (req, res) => {
-    const id = parseInt(req.params.id)
+    const id = parseInt(req.params.id) //al ser estrictamente igual, los params vienen por string, hay que convertir el req.params a entero
     const user = req.body
 
-    const userIdx = users.findIndex(u => u.id === id)
-    if (userIdx < 0) {
-        return res.status(404).json({ status: "error", message: "user not found" })
+    const userUbicado = users.findIndex(u => u.id === id) //u representa cada uno de los usuarios. u es el id buscado
+
+    if (userUbicado < 0) {
+        return res.status(404).json({ status: 'error', message: 'user not found' })
     }
 
-    users[userIdx] = user
-    res.json({ status: "success", message: "actualizado" })
+    users[userUbicado] = user
 
+    res.json({ status: 'success', message: 'actualizado' })
 })
 
 app.delete('/api/user/:id', (req, res) => {
-    const id = parseInt(req.params)
-    const userIdx = users.findIndex(u => u.id === id)
-    if (userIdx < 0) {
-        return res.status(404).json({ status: "error", message: "user not found" })
+    const id = parseInt(req.params.id)
+
+    const userUbicado = users.findIndex(u => u.id === id) //u representa cada uno de los usuarios. u es el id buscado
+
+    if (userUbicado < 0) {
+        return res.status(404).json({ status: 'error', message: 'user not found' })
     }
-    // quitamos de la lista el usuario con ese id
+
     users = users.filter(u => u.id !== id)
-    res.send({ status: "success", message: "user deleted" })
+    console.log(users);
+    res.send({ status: 'success', message: 'eliminado' })
 })
 
 app.listen(8080)
