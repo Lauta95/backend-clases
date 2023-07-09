@@ -19,9 +19,13 @@ const socketServer = new Server(httpServer)
 socketServer.on('connection', socket => {
     console.log('nuevo cliente conectado');
 
-    socket.on('message', data=>{
+    socket.on('message', data => {
         console.log(data);
-
-        socket.emit('message_ind', 'mensaje recibido desde el backend')
+        // solo emite para una sola persona (con el boton):
+        socket.emit('message_ind', 'solo le llega al conectado')
+        // le llega a todos los que están conectados meonos al socket actual:
+        socket.broadcast.emit('msn_rest', 'Todos ven este mensaje, menos el actual')
+        // lo ven todos:
+        socketServer.emit('msn_all', data)
     })
 })
