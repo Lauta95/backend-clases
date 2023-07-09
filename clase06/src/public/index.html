@@ -1,14 +1,32 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
+
 <body>
-    hola
+    websockets
+    <input id="txt"/>
+    <button id="btn">Enviar mensaje</button>
+
+    <!-- para instanciar: -->
+    <script src="/socket.io/socket.io.js"></script>
+
+    <!-- para el codigo javascript: -->
     <script>
-        
+        var socket = io();
+        document.getElementById('btn').onclick = () => {
+            const mensaje = document.getElementById('txt').value
+            socket.emit('message', mensaje)
+        }
+
+        socket.on('message_ind', data => {
+            console.log(data);
+        })
     </script>
 </body>
+
 </html>
