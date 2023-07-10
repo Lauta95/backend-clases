@@ -17,10 +17,12 @@ app.use('/static', express.static(__dirname + '/public'))
 app.get('/health', (req, res) => res.send('ok'))
 app.use('/', routerViews)
 
+const messages = []
 io.on('connection', socket => {
     socket.on('new', user => console.log(`${user} se acaba de conectar`))
 
     socket.on('message', data => {
-        io.emit('logs', data)
+        messages.push(data)
+        io.emit('logs', messages)
     })
 })
