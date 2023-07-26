@@ -1,3 +1,8 @@
 {{!-- mostrar uno --}}
-
-<h2>pokemon: {{name}}</h2>
+<div>
+    <h2>{{name}}</h2>
+    <img src="{{photo}}" alt="" height="100">
+    type: {{type}}
+    <hr> 
+    <a href="/pokemon/delete/{{this._id}}">Borrar</a>
+</div>

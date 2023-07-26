@@ -7,7 +7,8 @@ import mongoose from 'mongoose';
 const app = express();
 
 app.use(express.json())
-
+// le vamos a pasar un parámetro por lo tanto hay que usar el urlencoded
+app.use(express.urlencoded({extend: true}))
 // carpeta publica
 app.use('/public', express.static(__dirname + '/public'))
 

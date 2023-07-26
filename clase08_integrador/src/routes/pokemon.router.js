@@ -6,17 +6,17 @@ const router = Router();
 // listar
 router.get('/', async (req, res) => {
     const pokemons = await pokeModel.find().lean().exec()
-    res.render('list', {pokemons})
+    res.render('list', { pokemons })
 })
 // pagina para crear(render html) trae el formulario
 router.get('/create', async (req, res) => {
     res.render('create', {})
 })
 // crear pokemon POST:
-router.post('/create', async(req,res)=>{
+router.post('/create', async (req, res) => {
     const pokemonNew = req.body
-    console.log({pokemonNew});
-    
+    console.log({ pokemonNew });
+
     const pokemonGenerated = new pokeModel(pokemonNew)
     await pokemonGenerated.save()
 
@@ -24,13 +24,19 @@ router.post('/create', async(req,res)=>{
 
     res.redirect('/pokemon/' + pokemonGenerated.name)
 })
-// crear uno
-router.get('/:name', async (req, res) => {
-    const name = req.params.name
-    res.render('one', {name: 'pikachu'})
-})
-// obtener uno con su nombre
-
 // borrar
+router.get('/delete/:id', async (req, res) => {
+    const id = req.params.id
+
+    await pokeModel.deleteOne({ _id: id })
+    res.redirect('/pokemon')
+})
+// crear uno
+router.get('/:id', async (req, res) => {
+    const id = req.params.id
+    const pokemon = await pokeModel.findOne({id})
+    res.render('one', pokemon)
+})
+
 
 export default router
