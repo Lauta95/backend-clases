@@ -1,0 +1,7 @@
+CLASE 11.autorización y autenticación & estrategia de autenticación por terceros + JWT
+
+hashear información: no hay manera de saber que datos son
+
+ecriptar:
+
+CONFIGURACIONES: AGREGAR EL COMMENT Y EL FORMAT
