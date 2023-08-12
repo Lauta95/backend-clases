@@ -4,4 +4,6 @@ hashear información: no hay manera de saber que datos son
 
 ecriptar:
 
-CONFIGURACIONES: AGREGAR EL COMMENT Y EL FORMAT
+---CONFIGURACIONES: AGREGAR EL COMMENT Y EL FORMAT, sacar mouse battery low de debian
+
+passport: generador de estraegias de autenticación y autorización para mantener codigo limpio estructurado y altamanete configurable.
