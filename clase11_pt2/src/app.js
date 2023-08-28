@@ -7,6 +7,7 @@ import handlebars from 'express-handlebars'
 import userRouter from './routes/session.route.js'
 import initializePassport from './config/passport.config.js'
 import passport from 'passport'
+import jwtRouter from './routes/jwt.router.js'
 
 const app = express()
 const URL = "mongodb+srv://freecodecamp-user:fDlfjlzTXxxBhYva@cluster0.vw59urg.mongodb.net/?retryWrites=true&w=majority"
@@ -43,7 +44,7 @@ initializePassport()
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.use('/', userRouter)
+app.use('/jwt', jwtRouter)
 
 mongoose.connect(URL, { dbName })
     .then(() => {

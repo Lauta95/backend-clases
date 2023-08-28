@@ -3,7 +3,6 @@ import { Router } from 'express'
 import passport from 'passport'
 import { createHash, isValidPassword } from '../utils.js'
 
-
 const router = Router()
 
 router.get('/', (req, res) => {
