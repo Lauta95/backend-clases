@@ -14,7 +14,7 @@ router.post('/register', (req, res) => {
     usersDB.push(user)
     const access_token = generateToken(user)
     res.cookie('Tokenn', access_token, {
-        maxAge: 60*60*100,
+        maxAge: 60*60*1000,
         httpOnly: true
     }).send({message: 'logged in!!!!'})
 })

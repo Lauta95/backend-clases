@@ -4,7 +4,7 @@
     fetch('/jwt/current', {
         headers: {
             'Current-type': 'application/json',
-            'auth': `${localStorage.getItem('auth')}`
+            //'auth': `${localStorage.getItem('auth')}`
         }
     }).then(r => r.json())
         .then(data => {

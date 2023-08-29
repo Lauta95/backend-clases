@@ -7,22 +7,21 @@ import jwt from 'jsonwebtoken'
 
 
 const PRIVATE_KEY = 'coderkeyfromLautaDASWE4314123'
-
+// con hash(bcrypt) no podemos recuperar la info
 export const createHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
 }
-
 export const isValidPassword = (user, password) => {
     return bcrypt.compareSync(password, user.password) //true or false
 }
-// generar token
+// jwt generar token
 export const generateToken = (user) => {
     const token = jwt.sign({ user }, PRIVATE_KEY, { expiresIn: '24h' })
     return token
 }
-// extraer token del header
+// jwt extraer token del header
 export const authToken = (req, res, next) => {
-    const authHeader = req.headers.auth
+    let authHeader = req.headers.auth
     if (!authHeader) {
         authHeader = req.cookies['Tokenn']
         if (!authHeader) {

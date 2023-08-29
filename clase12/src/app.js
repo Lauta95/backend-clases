@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 import session from 'express-session'
 import MongoStore from 'connect-mongo'
 import handlebars from 'express-handlebars'
+import cookieParser from 'cookie-parser'
 import userRouter from './routes/session.route.js'
 import initializePassport from './config/passport.config.js'
 import passport from 'passport'
@@ -15,6 +16,7 @@ const URL = "mongodb+srv://freecodecamp-user:fDlfjlzTXxxBhYva@cluster0.vw59urg.m
 const dbName = 'clase11'
 
 app.use(express.json())
+app.use(cookieParser('secretCookie'))
 //data for post
 app.use(express.urlencoded({ extended: true }))
 app.use(express.static(__dirname + '/public'))
