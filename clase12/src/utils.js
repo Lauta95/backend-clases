@@ -4,7 +4,7 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = dirname(__filename)
 import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
-
+import passport from 'passport'
 
 const PRIVATE_KEY = 'secretCookie'
 // con hash(bcrypt) no podemos recuperar la info
@@ -36,6 +36,22 @@ export const authToken = (req, res, next) => {
         req.user = credentials.user
         next()
     })
+}
+
+export const passportCall = strategy => {
+    return async (req, res, next) => {
+        passport.authenticate(strategy, function (err, user, info) {
+            if (err) return next(err)
+            if (!user) {
+                return res.status(401).send({
+                    error: info.messages ? info.messages : info.toString()
+                })
+            }
+
+            req.user = user
+            next()
+        })(req, res, next)
+    }
 }
 
 export default __dirname

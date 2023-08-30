@@ -33,7 +33,7 @@ router.post('/login', (req, res) => {
     }).send('logged inn!')
 })
 
-router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+router.get('/current', passportCall('jwt'), (req, res) => {
     console.log('Path /current');
     res.send({ status: 'success', payload: req.user })
 })
