@@ -1,5 +1,6 @@
 import { Router } from 'express';
 import { generateToken, authToken } from '../utils.js';
+import passport from 'passport';
 
 const usersDB = [
     { email: 'lauta@gmail.com', password: '123', name: 'lauta' }
@@ -14,9 +15,9 @@ router.post('/register', (req, res) => {
     usersDB.push(user)
     const access_token = generateToken(user)
     res.cookie('Tokenn', access_token, {
-        maxAge: 60*60*1000,
+        maxAge: 60 * 60 * 1000,
         httpOnly: true
-    }).send({message: 'logged in!!!!'})
+    }).send({ message: 'logged in!!!!' })
 })
 
 router.post('/login', (req, res) => {
@@ -27,12 +28,13 @@ router.post('/login', (req, res) => {
 
     const access_token = generateToken(user)
     res.cookie('Tokenn', access_token, {
-        maxAge: 60*60*1000,
+        maxAge: 60 * 60 * 1000,
         httpOnly: true
     }).send('logged inn!')
 })
 
-router.get('/current', authToken, (req, res) => {
+router.get('/current', passport.authenticate('jwt', { session: false }), (req, res) => {
+    console.log('Path /current');
     res.send({ status: 'success', payload: req.user })
 })
 

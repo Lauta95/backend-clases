@@ -3,6 +3,7 @@ import local from 'passport-local';
 import UserModel from "../model/user.model.js";
 import { createHash, isValidPassword } from "../utils.js";
 import GitHubStrategy from 'passport-github2'
+import jwt from 'passport-jwt'
 
 // App ID: 375160
 
@@ -10,8 +11,31 @@ import GitHubStrategy from 'passport-github2'
 // 26da0872da06c1c2f41f76b67f88c934f71a60e5
 
 const LocalStrategy = local.Strategy
+const JWTStrategy = jwt.Strategy // estrategia de jwt
+const ExtractJWT = jwt.ExtractJWT // funcion de extracción
+
+const cookieExtractor = req => {
+    const token = (req?.cookies) ? req.cookies['Tokenn'] : null
+    console.log('cookie extractor: ', token)
+    return token
+}
 
 const initializePassport = () => {
+
+    passport.use(
+        'jwt',
+        new JWTStrategy({
+            jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+            scretOrKEy: 'secretCookie'
+        },
+            async (jwt_payload, done) => {
+                try {
+                    return done(null, jwt_payload)
+                } catch (e) {
+                    return done(e)
+                }
+            })
+    )
 
     passport.use('github', new GitHubStrategy(
         {
@@ -24,7 +48,7 @@ const initializePassport = () => {
 
             try {
                 const user = UserModel.findOne({ email: profile._json.email })
-                if(user){
+                if (user) {
                     console.log('user already exists' + email);
                     return done(null, user)
                 }
@@ -35,7 +59,7 @@ const initializePassport = () => {
                 }
                 const result = await UserModel.create(newUser)
                 return done(null, result)
-            } catch(e){
+            } catch (e) {
                 return done('error to login with github' + error)
             }
         }
@@ -89,6 +113,7 @@ const initializePassport = () => {
 
         }
     ))
+
 
     passport.serializeUser((user, done) => {
         done(null, user._id)

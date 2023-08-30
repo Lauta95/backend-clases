@@ -6,7 +6,7 @@ import bcrypt from 'bcrypt'
 import jwt from 'jsonwebtoken'
 
 
-const PRIVATE_KEY = 'coderkeyfromLautaDASWE4314123'
+const PRIVATE_KEY = 'secretCookie'
 // con hash(bcrypt) no podemos recuperar la info
 export const createHash = (password) => {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(10))
