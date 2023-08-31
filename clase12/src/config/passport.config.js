@@ -20,15 +20,18 @@ const cookieExtractor = req => {
     return token
 }
 
+
 const initializePassport = () => {
 
     passport.use(
         'jwt',
-        new JWTStrategy({
-            jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
-            scretOrKEy: 'secretCookie'
-        },
+        new JWTStrategy(
+            {
+                jwtFromRequest: ExtractJWT.fromExtractors([cookieExtractor]),
+                secretOrKey: 'coderTokenForJWT'
+            },
             async (jwt_payload, done) => {
+
                 try {
                     return done(null, jwt_payload)
                 } catch (e) {

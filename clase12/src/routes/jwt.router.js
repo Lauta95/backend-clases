@@ -1,6 +1,7 @@
 import { Router } from 'express';
-import { generateToken, authToken } from '../utils.js';
+import { generateToken, authToken, passportCall } from '../utils.js';
 import passport from 'passport';
+
 
 const usersDB = [
     { email: 'lauta@gmail.com', password: '123', name: 'lauta' }
